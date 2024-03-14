@@ -1,20 +1,20 @@
 class Solution {
     public int numSubarraysWithSum(int[] nums, int goal) {
-        int totalCount = 0, currentSum = 0;
+        return slidingWindowAtMost(nums, goal) - slidingWindowAtMost(nums, goal-1);
+    }
 
-        Map<Integer, Integer> freq = new HashMap<>();
-        for (int num : nums) {
-            currentSum += num;
-            if (currentSum == goal) {
-                totalCount++;
+    private int slidingWindowAtMost(int[] nums, int goal) {
+        int start = 0, currentSum = 0, totalCount = 0;
+
+        for (int end = 0; end < nums.length; end++) {
+            currentSum += nums[end];
+            while (start <= end && currentSum > goal) {
+                 currentSum -= nums[start++];
             }
 
-            if (freq.containsKey(currentSum - goal)) {
-                totalCount += freq.get(currentSum - goal);
-            }
+            totalCount += end - start + 1;
+        }
 
-            freq.put(currentSum, freq.getOrDefault(currentSum, 0) + 1);
-        }    
         return totalCount;
     }
 }
