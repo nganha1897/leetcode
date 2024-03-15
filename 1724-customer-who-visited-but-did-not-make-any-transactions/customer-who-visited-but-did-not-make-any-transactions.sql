@@ -1,0 +1,14 @@
+/* Write your PL/SQL query statement below */
+
+SELECT 
+  CUSTOMER_ID,
+  COUNT(*) AS COUNT_NO_TRANS
+FROM 
+  Visits V LEFT OUTER JOIN
+  Transactions T
+ON
+  V.VISIT_ID = T.VISIT_ID
+WHERE 
+  TRANSACTION_ID IS NULL
+GROUP BY CUSTOMER_ID;
+
