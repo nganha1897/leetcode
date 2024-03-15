@@ -17,13 +17,3 @@ FROM
 WHERE RNK < 4
 ; 
 
--- SELECT 
---   Department.NAME AS DEPARTMENT, 
---   Employee.NAME AS EMPLOYEE,
---   SALARY 
--- FROM 
---   Employee,
---   Department
-
--- SELECT SALARY FROM Employee 
-
