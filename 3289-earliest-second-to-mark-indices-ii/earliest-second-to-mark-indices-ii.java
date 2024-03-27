@@ -6,7 +6,8 @@ class Solution {
         for (int num : nums) {
             sum += num;
         }
-         Map<Integer, Integer> firstPos = new HashMap<>();
+        
+        Map<Integer, Integer> firstPos = new HashMap<>();
         for (int i=0; i<m; i++) {
             if (!firstPos.containsKey(changeIndices[i]-1)) {
                 firstPos.put(changeIndices[i]-1, i);
@@ -16,20 +17,19 @@ class Solution {
         int min = n, max = (int)Math.min(m, sum) + 1;
         while (min < max) {
             int mid = min + (max - min)/2;
-            PriorityQueue<Integer> pq = new PriorityQueue<>((a,b) -> nums[a] - nums[b]);
+            PriorityQueue<Integer> pq = new PriorityQueue<>();
             int op = 0;
-            long dec = 0;
-            boolean[] isMarked = new boolean[n];
+            long total = sum;
             for (int i=mid-1; i>=0; i--) {
                 int pos = changeIndices[i] - 1;
-                isMarked[pos] = true;
                 if (nums[pos] > 0) {
                     if (firstPos.get(pos) == i) {
-                        pq.add(pos);
+                        pq.add(nums[pos]);
+                        total -= nums[pos] - 1;
                         if (pq.size() > op) {
-                            dec += nums[pq.poll()];
-                            op++;
-                        }                     
+                            total += pq.poll() - 1;
+                            op++;                    
+                        } 
                     } else {
                         op++;
                     }
@@ -37,13 +37,8 @@ class Solution {
                     op++;
                 }
             }
-            for (int i=0; i<n; i++) {
-                if (!isMarked[i]) {
-                    dec += nums[i];
-                }
-            }
-            //System.out.println(pq + " " + mid + " " + dec + " " + op);
-            if (n + pq.size() + dec <= mid) {
+
+            if (total <= mid) {
                 max = mid;
             } else 
                 min = mid + 1;
