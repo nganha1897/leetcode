@@ -19,9 +19,6 @@ class Solution {
             cur.next = cur.next.next;
             temp.next = cur;
             prev.next = temp;
-            // temp.next = cur.next.next;
-            // cur.next.next = temp;
-            // cur = cur.next.next;
             prev = cur;
             cur = cur.next;
         }
