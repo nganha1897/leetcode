@@ -1,31 +1,5 @@
 # Write your MySQL query statement below
 
--- with date_rnk as
--- (select
---   customer_id,
---   transaction_date,
---   amount,
---   adddate(transaction_date, -dense_rank() over (partition by customer_id order by transaction_date)) rnk1
--- from transactions
--- ),
--- amt_rnk as
--- (
--- select
---   customer_id,
---   transaction_date,
---   adddate(transaction_date, -dense_rank() over (partition by customer_id, rnk1 order by amount)) rnk2
--- from date_rnk
--- ) 
--- select dr.customer_id, min(ak.transaction_date) consecutive_start,
---   max(ak.transaction_date) consecutive_end
--- from
--- date_rnk dr join amt_rnk ak on dr.customer_id = ak.customer_id 
--- and dr.transaction_date = ak.transaction_date
--- group by customer_id, rnk2 
--- having count(rnk2) >= 3
--- order by dr.customer_id
--- ;
-
 WITH ConsecutiveIncreasingTransactions AS (
   SELECT 
     a.customer_id, 
@@ -42,7 +16,7 @@ RankedTransactions AS (
   SELECT 
     customer_id, 
     transaction_date, 
-    ROW_NUMBER() OVER (
+    dense_rank() OVER (
       PARTITION BY customer_id 
       ORDER BY 
         transaction_date
