@@ -1,10 +1,11 @@
 class Solution {
     public List<Integer> luckyNumbers (int[][] matrix) {
         int m = matrix.length, n = matrix[0].length;
+        int minCol, min;
         List<Integer> ans = new ArrayList<>();
         for (int r=0; r<m; r++) {
-            int minCol = findMinCInR(matrix,r);
-            int min = matrix[r][minCol];
+            minCol = findMinCInR(matrix,r);
+            min = matrix[r][minCol];
 
             if (checkIfMaxInC(matrix, minCol, min))
                 ans.add(min);
