@@ -27,32 +27,43 @@
 //         return ans;
 //     }
 // }
+
 class Solution {
-    public List<Integer> luckyNumbers(int[][] matrix) {
-        int N = matrix.length, M = matrix[0].length;
+    public List<Integer> luckyNumbers(int[][] m) {
+        List<Integer> list = new ArrayList<Integer>();
+        int item,
+        minC;
 
-        int rMinMax = Integer.MIN_VALUE;
-        for (int i = 0; i < N; i++) {
-            int rMin = Integer.MAX_VALUE;
-            for (int j = 0; j < M; j++) {
-                rMin = Math.min(rMin, matrix[i][j]);
+        for(int r=0;r<m.length;r++){
+            minC=findMinCInR(m,r);
+            item = m[r][minC];
+       
+            if(checkIfMaxInC(m,minC,item)){
+                list.add(item);
             }
-            rMinMax = Math.max(rMinMax, rMin);
         }
+ 
+        return list;
+    }
 
-        int cMaxMin = Integer.MAX_VALUE;
-        for (int i = 0; i < M; i++) {
-            int cMax = Integer.MIN_VALUE;
-            for (int j = 0; j < N; j++) {
-                cMax = Math.max(cMax, matrix[j][i]);
+    private int findMinCInR(int[][] m,int r){
+        int min = 100001,
+            minIndex = 0;
+        for(int c=0;c<m[r].length;c++){
+            if(m[r][c]<min){
+                min = m[r][c];
+                minIndex = c;
             }
-            cMaxMin = Math.min(cMaxMin, cMax);
         }
+        return minIndex;
+    }
 
-        if (rMinMax == cMaxMin) {
-            return new ArrayList<>(Arrays.asList(rMinMax));
+    private boolean checkIfMaxInC(int[][]m, int c, int max){
+        for(int r=0;r<m.length;r++){
+            if(m[r][c]>max){
+                return false;
+            }
         }
-
-        return new ArrayList<>();
+        return true;
     }
 }
