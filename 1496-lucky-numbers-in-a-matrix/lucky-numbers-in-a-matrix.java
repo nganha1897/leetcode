@@ -12,18 +12,19 @@ class Solution {
                 }
             }
 
-            boolean isMaxCol = true;
-            for (int curR=0; curR<m; curR++) {
-                if (matrix[curR][minCol] > min) {
-                    isMaxCol = false;
-                    break;
-                }
-            }
-
-            if (isMaxCol)
+            if (checkIfMaxInC(matrix, minCol, min))
                 ans.add(min);
         }
 
         return ans;
+    }
+
+    private boolean checkIfMaxInC(int[][]m, int c, int max){
+        for(int r=0;r<m.length;r++){
+            if(m[r][c]>max){
+                return false;
+            }
+        }
+        return true;
     }
 }
