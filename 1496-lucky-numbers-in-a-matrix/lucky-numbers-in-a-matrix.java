@@ -12,18 +12,16 @@ class Solution {
                 }
             }
 
-            int max = min;
-            int maxRow = 0;
             boolean isMaxCol = true;
             for (int curR=0; curR<m; curR++) {
-                if (matrix[curR][minCol] > max) {
+                if (matrix[curR][minCol] > min) {
                     isMaxCol = false;
                     break;
                 }
             }
 
             if (isMaxCol)
-                ans.add(max);
+                ans.add(min);
         }
 
         return ans;
