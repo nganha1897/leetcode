@@ -3,13 +3,16 @@ class Solution {
         int maxSide = 0;
         for (int i=0; i<bottomLeft.length-1; i++) {
             for (int j=i+1; j<bottomLeft.length; j++) {
+                int curSide = Math.min(topRight[i][0]-bottomLeft[i][0],topRight[i][1]-bottomLeft[i][1]);
+                if (curSide<=maxSide)
+                    continue;
                 int minX = Math.min(topRight[i][0], topRight[j][0]);
                 int maxX = Math.max(bottomLeft[i][0], bottomLeft[j][0]);
 
                 int minY = Math.min(topRight[i][1], topRight[j][1]);
                 int maxY = Math.max(bottomLeft[i][1], bottomLeft[j][1]);
 
-                int curSide = Math.min(minX - maxX, minY - maxY);
+                curSide = Math.min(minX - maxX, minY - maxY);
 
                 maxSide = Math.max(maxSide, curSide);
             }
