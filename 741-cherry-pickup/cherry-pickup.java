@@ -30,7 +30,7 @@ class Solution {
 
     private int pickup(int[][] grid, int n, int r1, int c1, int r2, Integer[][][] dp) {
         int c2 = r1 + c1 - r2;
-        if (r1 < 0 || r1 == n || r2 < 0 || r2 == n || c1 < 0 || c1 == n || c2 < 0 || c2 == n) {
+        if (r1 < 0 || r1 == n || r2 < 0 || r2 == n || c1 < 0 || c1 == n || c2 < 0 || c2 == n || grid[r1][c1] == -1 || grid[r2][c2] == -1) {
             return -1;
         }
         if (dp[r1][c1][r2] != null) {
@@ -42,11 +42,6 @@ class Solution {
             return dp[r1][c1][r2];
         }
 
-        
-        if (grid[r1][c1] == -1 || grid[r2][c2] == -1) {
-            dp[r1][c1][r2] = -1;
-            return -1;
-        }
         if (r1 == r2 && c1 == c2) {
             int o1 = pickup(grid, n, r1 + 1, c1, r2 + 1, dp);
             int o2 = pickup(grid, n, r1, c1 + 1, r2 + 1, dp);
