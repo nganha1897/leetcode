@@ -18,6 +18,9 @@ class Solution {
                 sum /= 10;
             }
             sum = temp;
+            if (sum < 10) {
+                return sum;
+            }
         }
         return sum;
     }
