@@ -29,35 +29,24 @@ class Solution {
 
     private boolean isIPv4(String[] ip) {
         if (ip.length != 4) {
-            //System.out.println(1);
             return false;
         }
 
         for (String p : ip) {
-            if (p == null || p.length() == 0) {
-                //System.out.println(2);
-                return false;
-            }
-            int len = p.length();
-            if (len > 3) {
-                //System.out.println(3);
+            if (p == null || p.length() == 0 || p.length() > 3) {
                 return false;
             }
 
             if (p.charAt(0) == '0' && p.length() > 1) {
-                //System.out.println(p + " " + p.length());
-                //System.out.println(4);
                 return false;
             } 
             for (char c : p.toCharArray()) {
                 if (c < '0' || c > '9') {
-                    //System.out.println(5);
                     return false;
                 }
             }
-            int cur = Integer.valueOf(p);
-            if (cur > 255) {
-                //System.out.println(6);
+
+            if (Integer.valueOf(p) > 255) {
                 return false;
             }
         }
@@ -70,13 +59,10 @@ class Solution {
         }
 
         for (String p : ip) {
-            if (p == null || p.length() == 0) {
+            if (p == null || p.length() < 1 || p.length() > 4) {
                 return false;
             }
-            int len = p.length();
-            if (len < 1 || len > 4) {
-                return false;
-            }
+
             for (char c : p.toCharArray()) {
                 if ((c < '0' || c > '9') && (c < 'a' || c > 'f') && (c < 'A' || c > 'F')) {
                     return false;
