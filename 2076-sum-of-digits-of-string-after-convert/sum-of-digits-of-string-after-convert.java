@@ -4,17 +4,21 @@ class Solution {
         for (char c : s.toCharArray()) {
             convert.append(c - 'a' + 1);
         }
-        
-        for (int i=0; i<k; i++) {
-            int sum = 0;
-            for (int j=0; j<convert.length(); j++) {
-                sum += convert.charAt(j) - '0';
-            }
-            if (sum < 10) {
-                return sum;
-            }
-            convert = new StringBuilder(sum + "");
+        int sum = 0;
+        for (int j = 0; j < convert.length(); j++) {
+            sum += convert.charAt(j) - '0';
         }
-        return Integer.valueOf(convert.toString());
+        if (sum < 10) {
+            return sum;
+        }
+        for (int i = 1; i < k; i++) {
+            int temp = 0;
+            while (sum > 0) {
+                temp += sum % 10;
+                sum /= 10;
+            }
+            sum = temp;
+        }
+        return sum;
     }
 }
