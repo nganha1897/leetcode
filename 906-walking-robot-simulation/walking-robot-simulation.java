@@ -2,11 +2,18 @@ class Solution {
     public int robotSim(int[] commands, int[][] obstacles) {
         int[] dir = {0, 1, 0, -1};
         int x = 0, y = 0, d = 0, ans = 0, offset = 30000;
-        Map<Integer, Set<Integer>> obs = new HashMap<>();
+        //Map<Integer, Set<Integer>> obs = new HashMap<>();
+        Set<Integer>[] obs = new Set[offset * 2 + 1];
 
         for (int i=0; i<obstacles.length; i++) {
-            obs.computeIfAbsent(obstacles[i][0], v -> new HashSet<>());
-            obs.get(obstacles[i][0]).add(obstacles[i][1]);
+            // obs.computeIfAbsent(obstacles[i][0], v -> new HashSet<>());
+            // obs.get(obstacles[i][0]).add(obstacles[i][1]);
+            int shiftedX = obstacles[i][0] + offset;
+
+            if (obs[shiftedX] == null) {
+                obs[shiftedX] = new HashSet<>();
+            }
+            obs[shiftedX].add(obstacles[i][1]);
         }
 
         for (int i=0; i<commands.length; i++) {
@@ -18,7 +25,10 @@ class Solution {
                 for (int f=0; f<commands[i]; f++) {
                     int nextX = x + dir[d]; 
                     int nextY = y + dir[(d + 1) % 4];
-                    if (obs.containsKey(nextX) && obs.get(nextX).contains(nextY)) {
+                    // if (obs.containsKey(nextX) && obs.get(nextX).contains(nextY)) {
+                    //     break;
+                    // }
+                    if (obs[nextX + offset] != null && obs[nextX + offset].contains(nextY)) {
                         break;
                     }
                     x = nextX;
