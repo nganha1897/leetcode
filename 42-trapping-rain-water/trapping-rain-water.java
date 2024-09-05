@@ -1,24 +1,58 @@
 class Solution {
     public int trap(int[] height) {
-        int len = height.length;
-        if (len <= 2)
-            return 0;
-        int[] leftTallest = new int[len];
-        int[] rightTallest = new int[len];
-        int res=0;
-        leftTallest[0] = height[0];
-        rightTallest[len-1] = height[len-1];
-        for (int i=1; i<len-1; i++) {
-            leftTallest[i] = Math.max(leftTallest[i-1], height[i]);
-            rightTallest[len-1-i] = Math.max(rightTallest[len-i], height[len-1-i]);
+        int n = height.length, ans = 0;
+        int[] maxLeft = new int[n];
+        int[] maxRight = new int[n];
+        
+        Deque<Integer> decStack = new ArrayDeque<>();
+        decStack.add(0);
+        maxLeft[0] = -1;
+        for (int i=1; i<n; i++) {
+            while (!decStack.isEmpty() && height[decStack.peekLast()] <= height[i]) {
+                decStack.pollLast();
+            }
+            if (decStack.isEmpty()) {
+                maxLeft[i] = -1;
+            } else {
+                maxLeft[i] = decStack.peekFirst();
+            }
+            decStack.offerLast(i);
         }
-        leftTallest[len-1] = Math.max(leftTallest[len-2], height[len-1]);
-        rightTallest[0] = Math.max(rightTallest[1], height[0]);
-        for (int j=1; j<len-1; j++) {
-            if (leftTallest[j] > height[j] && rightTallest[j] > height[j]) {
-                res += Math.min(leftTallest[j], rightTallest[j]) - height[j];
+        
+        while (!decStack.isEmpty() && decStack.size() > 1) {
+            maxLeft[decStack.pollLast()] = decStack.peekFirst();
+        }
+        if (decStack.size() == 1) {
+            maxLeft[decStack.pollLast()] = -1;
+        }
+
+        decStack.add(n-1);
+        maxRight[n-1] = -1;
+        for (int i=n-2; i>=0; i--) {
+            while (!decStack.isEmpty() && height[decStack.peekLast()] <= height[i]) {
+                decStack.pollLast();
+            }
+            if (decStack.isEmpty()) {
+                maxRight[i] = -1;
+            } else {
+                maxRight[i] = decStack.peekFirst();
+            }
+            decStack.offerLast(i);
+        }
+
+        while (!decStack.isEmpty() && decStack.size() > 1) {
+            maxRight[decStack.pollLast()] = decStack.peekFirst();
+        }
+        if (decStack.size() == 1) {
+            maxRight[decStack.pollLast()] = -1;
+        }
+        
+        for (int i=0; i<n; i++) {
+            if (maxLeft[i] != -1 && maxRight[i] != -1) {
+                ans += Math.min(height[maxLeft[i]], height[maxRight[i]]) - height[i];
             }
         }
-        return res;
+
+        return ans;
     }
 }
