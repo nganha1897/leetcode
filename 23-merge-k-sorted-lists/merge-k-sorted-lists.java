@@ -28,24 +28,47 @@ class Solution {
         // return dummy.next;
     //}
 
+    // public ListNode mergeKLists(ListNode[] lists) {
+    //     int offset = 10000;
+    //     int[] nums = new int[2 * offset + 1];
+    //     for (int i=0; i<lists.length; i++) {
+    //         ListNode cur = lists[i];
+    //         while (cur != null) {
+    //             nums[cur.val + offset]++;
+    //             cur = cur.next;
+    //         }
+    //     }
+    //     ListNode dummy = new ListNode();
+    //     ListNode cur = dummy;
+    //     for (int i=0; i<nums.length; i++) {
+    //         while (nums[i] > 0) {
+    //             cur.next = new ListNode(i - offset);
+    //             cur = cur.next;
+    //             nums[i]--;
+    //         }
+    //     }
+    //     return dummy.next;
+    // }
+
     public ListNode mergeKLists(ListNode[] lists) {
-        int offset = 10000;
-        int[] nums = new int[2 * offset + 1];
+        PriorityQueue<ListNode> pq = new PriorityQueue<>((a,b) -> a.val - b.val);
         for (int i=0; i<lists.length; i++) {
             ListNode cur = lists[i];
-            while (cur != null) {
-                nums[cur.val + offset]++;
-                cur = cur.next;
+            if (cur != null) {
+                pq.add(cur);
             }
         }
+
         ListNode dummy = new ListNode();
         ListNode cur = dummy;
-        for (int i=0; i<nums.length; i++) {
-            while (nums[i] > 0) {
-                cur.next = new ListNode(i - offset);
-                cur = cur.next;
-                nums[i]--;
+        while (!pq.isEmpty()) {
+            ListNode node = pq.poll();
+            cur.next = node;
+            if (node.next != null) {
+                pq.add(node.next);
+                node.next = null;   
             }
+            cur = cur.next;
         }
         return dummy.next;
     }
