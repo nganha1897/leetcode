@@ -62,13 +62,11 @@ class Solution {
         ListNode dummy = new ListNode();
         ListNode cur = dummy;
         while (!pq.isEmpty()) {
-            ListNode node = pq.poll();
-            cur.next = node;
-            if (node.next != null) {
-                pq.add(node.next);
-                node.next = null;   
-            }
+            cur.next = pq.poll();
             cur = cur.next;
+            if (cur.next != null) {
+                pq.add(cur.next);
+            }
         }
         return dummy.next;
     }
