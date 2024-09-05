@@ -30,19 +30,18 @@ class Solution {
             newNums[n++] = x;
         }
         newNums[0] = newNums[n++] = 1;
-        Integer[][] dp = new Integer[n][n];
+        int[][] dp = new int[n][n];
         return maxCoins(newNums, 1, n-2, dp);
     }
 
-    private int maxCoins(int[] nums, int left, int right, Integer[][] dp) {
+    private int maxCoins(int[] nums, int left, int right, int[][] dp) {
         if (left > right) {
             return 0;
         }
-        if (dp[left][right] != null) {
+        if (dp[left][right] > 0) {
             return dp[left][right];
         }
 
-        dp[left][right] = 0;
         for (int i = left; i <= right; i++) {
             int gain = nums[left - 1] * nums[i] * nums[right + 1];
             int remaining = maxCoins(nums, left, i - 1, dp) + maxCoins(nums, i + 1, right, dp);
