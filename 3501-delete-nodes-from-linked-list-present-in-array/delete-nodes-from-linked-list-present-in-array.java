@@ -12,13 +12,20 @@ class Solution {
     public ListNode modifiedList(int[] nums, ListNode head) {
         ListNode dummy = new ListNode(0, head);
         ListNode cur = dummy;
-        int n = nums.length;
-        boolean[] rem = new boolean[100001];
+        
+        int max = 0;
+        for(int n:nums){
+            if(n > max){
+                max = n;
+            }
+        }
+
+        boolean[] rem = new boolean[max+1];
         for (int num : nums) {
             rem[num] = true;
         }
         while (cur.next != null) {
-            if (rem[cur.next.val]) {
+            if (cur.next.val <= max && rem[cur.next.val]) {
                 cur.next = cur.next.next;
             } else
                 cur = cur.next;
