@@ -12,7 +12,7 @@ class Solution {
             }
             int nextR = r + dir[d];
             int nextC = c + dir[(d + 1) % 4];
-            System.out.println(r + " " + c + " " + d);
+
             while (nextR < 0 || nextR >= m || nextC < 0 || nextC >= n || matrix[nextR][nextC] == 101) {
                 d = (d + 1) % 4;
                 nextR = r + dir[d];
