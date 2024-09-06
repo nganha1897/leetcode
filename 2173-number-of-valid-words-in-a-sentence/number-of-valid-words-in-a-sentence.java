@@ -23,6 +23,7 @@ class Solution {
     }
     private boolean isValid(String s) {
         int hyphen = 0;
+        int hyphenPos = -2;
         char[] a = s.toCharArray();
 
         for (int i=0; i<a.length; i++) {
@@ -30,12 +31,13 @@ class Solution {
             if ((c < 'a' || c > 'z') && (c != '-' && c != '!' && c != '.' && c != ',')) {
                 return false;
             }
-            if (c == '-' && (hyphen > 0 || i == 0 || i == a.length-1 || a[i-1] < 'a' || a[i-1] > 'z' || a[i+1] < 'a' || a[i+1] > 'z')) {
+            if (c == '-' && (hyphen > 0 || i == 0 || i == a.length-1)) {
                 return false;
             } else if (c == '-') {
                 hyphen++;
+                hyphenPos = i;
             }
-            if ((c == '!' || c == '.' || c == ',') && i < a.length-1) {
+            if ((c == '!' || c == '.' || c == ',') && (i < a.length-1 || hyphenPos == i-1)) {
                 return false;
             }
         }
