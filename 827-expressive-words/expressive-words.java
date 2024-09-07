@@ -22,7 +22,6 @@ class Solution {
                 } else {
                     if (sarr[i] != sarr[i-1]) {
                         isStretchy = false; 
-                        //System.out.println(w + " " + 1);
                         break;
                     } 
                     while (i < sarr.length && sarr[i] == sarr[i-1]) {
@@ -31,14 +30,15 @@ class Solution {
                     }
                     if (count < 3) {
                         isStretchy = false;
-                        //System.out.println(w + " " + 2);
                         break;
                     }
                 }
             }
+            if (!isStretchy) {
+                continue;
+            }
             if (i == sarr.length && j == warr.length) {
                 if (isStretchy) {
-                    //System.out.println(w);
                     ans++;
                 }
                 continue;
@@ -46,7 +46,6 @@ class Solution {
             while (i < sarr.length) {
                 if (sarr[i] != sarr[i-1]) {
                     isStretchy = false;
-                   // System.out.println(w + " " + 3);
                     break;
                 }
                 i++;
@@ -54,11 +53,9 @@ class Solution {
             }
             if (j < warr.length) {
                 isStretchy = false;
-                //System.out.println(w + " " + 4);
                 continue;
             }
             if (isStretchy && count >= 3) {
-                //System.out.println(w);
                 ans++;
             }
         }
