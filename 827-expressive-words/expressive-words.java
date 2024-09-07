@@ -65,30 +65,31 @@ class Solution {
     public int expressiveWords(String s, String[] words) {
         int ans = 0;
         for (String w : words) {
-            int i = 0, j = 0;
-            boolean isStretchy = true;
-            while (i < s.length() && j < w.length()) {
-                if (s.charAt(i) == w.charAt(j)) {
-                    int lenS = noOfRepetitions(s, i);
-                    int lenW = noOfRepetitions(w, j);
-                    if (lenS < lenW || (lenS > lenW && lenS < 3)) {
-                        isStretchy = false;
-                        break;
-                    }
-                    i += lenS;
-                    j += lenW;
-                } else {
-                    isStretchy = false;
-                    break;
-                }
-            }
-            if (i < s.length() || j < w.length()) {
-                continue;
-            }
-            if (isStretchy)
+            if (isStretchy(s, w))
                 ans++;
         }
         return ans;
+    }
+
+    private boolean isStretchy(String s, String w) {
+        int i = 0, j = 0;
+        while (i < s.length() && j < w.length()) {
+            if (s.charAt(i) == w.charAt(j)) {
+                int lenS = noOfRepetitions(s, i);
+                int lenW = noOfRepetitions(w, j);
+                if (lenS < lenW || (lenS > lenW && lenS < 3)) {
+                    return false;
+                }
+                i += lenS;
+                j += lenW;
+            } else {
+                return false;
+            }
+        }
+        if (i < s.length() || j < w.length()) {
+            return false;
+        }
+        return true;
     }
 
     private int noOfRepetitions(String s, int i) {
