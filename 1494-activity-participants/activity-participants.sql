@@ -1,15 +1,12 @@
 # Write your MySQL query statement below
-with max_cnt as 
-(select max(cnt) max_count, min(cnt) min_count
-from (
-select count(*) cnt from friends
+with user_activity as 
+(
+select activity, count(distinct id) cnt from friends
 group by activity
-) t2)
+)
 select activity 
 from 
-(
-select activity, count(*) as act_cnt from friends 
-group by activity 
-having act_cnt != (select max_count from max_cnt)
-and act_cnt != (select min_count from max_cnt)
-) t1;
+user_activity
+where cnt != (select max(cnt) from user_activity)
+and cnt != (select min(cnt) from user_activity)
+;
