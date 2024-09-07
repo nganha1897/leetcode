@@ -16,22 +16,25 @@ class Solution {
         }
 
         int[] dist = new int[n*n+1];
-        Arrays.fill(dist, -1);
-        Queue<Integer> q = new LinkedList<Integer>();
+        Arrays.fill(dist, n*n+1);
+        PriorityQueue<Integer> q = new PriorityQueue<>((a,b) -> dist[a] - dist[b]);
         dist[1] = 0;
         q.add(1);
         while (!q.isEmpty()) {
             int cur = q.poll();
+            if (cur == n*n) {
+                return dist[cur];
+            }
             for (int next=cur+1; next<=Math.min(cur+6, n*n); next++) {
                 int r = cells[next].getKey();
                 int c = cells[next].getValue();
                 int dest = board[r][c] == -1 ? next : board[r][c];
-                if (dist[dest] == -1) {
+                if (dist[dest] == n*n+1) {
                     dist[dest] = dist[cur] + 1;
                     q.add(dest);
                 }
             }
         }
-        return dist[n*n];
+        return dist[n*n] == n*n+1 ? -1 : dist[n*n];
     }
 }
