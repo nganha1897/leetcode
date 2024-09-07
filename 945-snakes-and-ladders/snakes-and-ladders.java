@@ -17,7 +17,7 @@ class Solution {
 
         int[] dist = new int[n*n+1];
         Arrays.fill(dist, n*n+1);
-        PriorityQueue<Integer> q = new PriorityQueue<>((a,b) -> dist[a] - dist[b]);
+        Deque<Integer> q = new LinkedList<>();
         dist[1] = 0;
         q.add(1);
         while (!q.isEmpty()) {
