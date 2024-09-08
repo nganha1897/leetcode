@@ -4,18 +4,16 @@ class Solution {
         int[] dp = new int[n];
 
         for (int i=n-1; i>=0; i--) {
-            int[] curDp = new int[n];
-            curDp[i] = 1;
-            //int prev = 0;
+            dp[i] = 1;
+            int prev = 0;
             for (int j=i+1; j<n; j++) {
-                //int prev = dp[j];
+                int temp = dp[j];
                 if (s.charAt(i) == s.charAt(j)) {
-                    curDp[j] = 2 + dp[j-1];
+                    dp[j] = 2 + prev;
                 } else 
-                    curDp[j] = Math.max(dp[j], curDp[j-1]);
-                
+                    dp[j] = Math.max(dp[j], dp[j-1]);
+                prev = temp;
             }
-            dp = curDp;
         }
         return dp[n-1];
     }
