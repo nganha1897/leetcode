@@ -7,7 +7,9 @@ class Solution {
                 ans += nums[s];
                 return ans;
             } else {
-                int concat = Integer.valueOf(String.valueOf(nums[s++]) + String.valueOf(nums[e--]));
+                StringBuilder sb = new StringBuilder(nums[s++] + "").append(nums[e--]);
+                //int concat = Integer.valueOf(String.valueOf(nums[s++]) + String.valueOf(nums[e--]));
+                int concat = Integer.valueOf(sb.toString());
                 ans += concat;
             }
         }
