@@ -2,7 +2,7 @@ class Solution {
     public int longestPalindromeSubseq(String s) {
         int n = s.length();
         int[] dp = new int[n];
-        Arrays.fill(dp, 1);
+
         for (int i=n-1; i>=0; i--) {
             int[] curDp = new int[n];
             curDp[i] = 1;
