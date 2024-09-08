@@ -16,20 +16,20 @@
 class Solution {
     public List<String> binaryTreePaths(TreeNode root) {
         List<String> ans = new ArrayList<>();
-        dfs(root, new StringBuilder(), ans);
+        dfs(root, "", ans);
         return ans;
     }
 
-    private void dfs(TreeNode cur, StringBuilder s, List<String> ans) {
-        s.append(cur.val);
+    private void dfs(TreeNode cur, String s, List<String> ans) {
+        s += cur.val;
         if (cur.left == null && cur.right == null) {
-            ans.add(s.toString());
+            ans.add(s);
             return;
         }
-        s.append("->");
+        s += "->";
         if (cur.left != null) 
-            dfs(cur.left, new StringBuilder(s), ans);
+            dfs(cur.left, s, ans);
         if (cur.right != null)
-            dfs(cur.right, new StringBuilder(s), ans);
+            dfs(cur.right, s, ans);
     }
 }
