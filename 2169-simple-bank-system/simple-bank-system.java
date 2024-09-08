@@ -1,14 +1,16 @@
 class Bank {
     long[] balance;
+    int n;
     public Bank(long[] balance) {
-        this.balance = new long[balance.length];
+        n = balance.length;
+        this.balance = new long[n];
         for (int i=0; i<balance.length; i++) {
             this.balance[i] = balance[i];
         }
     }
     
     public boolean transfer(int account1, int account2, long money) {
-        if (account1 > balance.length || account2 > balance.length) {
+        if (account1 > n || account2 > n) {
             return false;
         }
         if (balance[account1-1] >= money) {
@@ -21,7 +23,7 @@ class Bank {
     }
     
     public boolean deposit(int account, long money) {
-        if (account > balance.length) {
+        if (account > n) {
             return false;
         }
         balance[account-1] += money;
@@ -29,7 +31,7 @@ class Bank {
     }
     
     public boolean withdraw(int account, long money) {
-        if (account > balance.length) {
+        if (account > n) {
             return false;
         }
         if (balance[account-1] >= money) {
