@@ -11,6 +11,7 @@ class Solution {
             ans = Math.max(ans, i - prev + 1);
             map.put(c, i);
         }
+        System.out.println('a');
         return ans;
     }
 }
