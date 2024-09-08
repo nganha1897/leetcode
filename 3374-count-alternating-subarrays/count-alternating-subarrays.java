@@ -6,12 +6,11 @@ class Solution {
             if (nums[i] == 1) {
                 one = zero + 1;
                 zero = 0;
-                ans += one;
             } else {
                 zero = one + 1;
                 one = 0;
-                ans += zero;
             }
+            ans += one + zero;
         }
         return ans;
     }
