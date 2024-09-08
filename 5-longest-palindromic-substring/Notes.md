@@ -1,1 +1,1 @@
-<h2>longest-palindromic-substring Notes</h2><hr>[ Time taken: 42 m 17 s ]
+<h2>longest-palindromic-substring Notes</h2><hr>[ Time taken: 1 hr 14 m 56 s ]
