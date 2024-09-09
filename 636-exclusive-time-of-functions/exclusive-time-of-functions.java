@@ -17,7 +17,6 @@ class Solution {
                 ans[start[0]] += time - start[1] + 1;
                 if (!d.isEmpty()) {
                     int[] prev = d.pollLast();
-                    //ans[prev[0]] += start[1] - prev[1];
                     d.offerLast(new int[] {prev[0], time+1});
                 }
             }
