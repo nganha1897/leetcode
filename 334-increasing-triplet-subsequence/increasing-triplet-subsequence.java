@@ -1,5 +1,8 @@
 class Solution {
     public boolean increasingTriplet(int[] nums) {
+        if (nums == null || nums.length < 3) {
+            return false;
+        }
         Integer i = null, j = null;
         for (int k = 0; k<nums.length; k++) {
             if (j == null) {
