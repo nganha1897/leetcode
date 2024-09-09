@@ -5,15 +5,12 @@ class Solution {
         for (int i = 0; i < len; i++) {
             cost[i] = Math.abs(s.charAt(i) - t.charAt(i));
         }
-        for (int i=0; i<s.length(); i++) {
+        for (int i = 0; i < s.length(); i++) {
             sum += cost[i];
-            if (sum <= maxCost) {
-                ans = Math.max(ans, i - start + 1);
-            } else {
-                while (sum > maxCost && start <= i) {
-                    sum -= cost[start++];
-                }
+            while (sum > maxCost) {
+                sum -= cost[start++];
             }
+            ans = Math.max(ans, i - start + 1);
         }
         return ans;
     }
