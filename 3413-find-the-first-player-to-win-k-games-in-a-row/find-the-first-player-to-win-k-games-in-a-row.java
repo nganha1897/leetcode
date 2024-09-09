@@ -16,7 +16,7 @@ class Solution {
             }
             dec.offerLast(i);
         }
-        //System.out.println(Arrays.toString(dp));
+
         if (dp[0] >= k) {
             return 0;
         }
