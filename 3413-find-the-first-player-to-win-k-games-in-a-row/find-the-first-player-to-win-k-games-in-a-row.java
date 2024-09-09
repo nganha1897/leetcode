@@ -1,34 +1,18 @@
 class Solution {
     public int findWinningPlayer(int[] skills, int k) {
-        int max = skills[0];
-        int n = skills.length;
-        int[] dp = new int[n];
-        Deque<Integer> dec = new ArrayDeque<>();
-        dec.add(n-1);
-        for (int i=n-2; i>=0; i--) {
-            while (!dec.isEmpty() && skills[dec.peekLast()] < skills[i]) {
-                dec.pollLast();
-            }
-            if (!dec.isEmpty()) {
-                dp[i] = dec.peekLast() - i - 1;
+        int n = skills.length, count = 0;
+        int cur = 0;
+        for (int i=1; i<n; i++) {
+            if (skills[cur] > skills[i]) {
+                count++;
             } else {
-                dp[i] = n - i - 1;
+                count = 1;
+                cur = i;
             }
-            dec.offerLast(i);
-        }
-
-        if (dp[0] >= k) {
-            return 0;
-        }
-        for (int i=1; i<skills.length; i++) {
-            int wins = 1;
-            if (skills[i] > max) {
-                if (k == 1 || dp[i] + 1 >= k || dp[i] == n - i - 1) {
-                    return i;
+            if (count == k) {
+                    return cur;
                 }
-                max = skills[i];
-            }
         }
-        return 0;
+        return cur;
     }
 }
