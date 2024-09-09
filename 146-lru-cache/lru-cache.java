@@ -16,12 +16,8 @@ class LRUCache {
     public int get(int key) {
         if (dict.containsKey(key)) {
             Node node = dict.get(key);
-
-            node.prev.next = node.next;
-            node.next.prev = node.prev;
-
-            addToFront(node);
-            //System.out.println(dict);
+            remove(node);
+            add(node);
             return node.val;
         }
         return -1;
@@ -31,36 +27,32 @@ class LRUCache {
         if (dict.containsKey(key)) {
             Node node = dict.get(key);
             dict.get(key).val = value;
-            node.prev.next = node.next;
-            node.next.prev = node.prev;
-            addToFront(dict.get(key));
-            //System.out.println(dict);
+            remove(node);
+            add(node);
             return;
         }
         if (capacity == 0) {
             Node rem = tail.next;
-            removeFromEnd();
+            remove(rem);
             capacity++;
             dict.remove(rem.key);       
         }
         Node node = new Node(key, value);
-        addToFront(node);
+        add(node);
         dict.put(key, node);
         capacity--;
-        //System.out.println(dict);
     }
 
-    private void addToFront(Node node) {
+    private void add(Node node) {
         node.next = head;
         node.prev = head.prev;
         head.prev = node;
         node.prev.next = node;
     }
 
-    private void removeFromEnd() {
-        //System.out.println(tail.next.val);
-        tail.next = tail.next.next;
-        tail.next.prev = tail;
+    public void remove(Node node) {
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
     }
 }
 
