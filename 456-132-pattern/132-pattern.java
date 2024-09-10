@@ -35,7 +35,6 @@ class Solution {
             while (stackIdx >= 0 && nums[decreasingStack[stackIdx]] <= min[i])
                 stackIdx--;
             if (stackIdx >= 0 && nums[decreasingStack[stackIdx]] < nums[i]) {
-                System.out.println(min[i] + " " + nums[decreasingStack[stackIdx]] + " " + nums[i]); 
                 return true;
             }
             decreasingStack[++stackIdx] = i;
