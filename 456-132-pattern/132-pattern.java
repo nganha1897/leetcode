@@ -28,14 +28,16 @@ class Solution {
         min[0] = nums[0];
 
         for (int i=1; i<n; i++)
-            min[i] = Math.min(nums[i-1], min[i-1]);    
+            min[i] = Math.min(nums[i], min[i-1]);    
         
         int stackIdx = -1;
-        for (int i=0; i<n; i++) {
-            while (stackIdx >= 0 && nums[decreasingStack[stackIdx]] <= nums[i])
+        for (int i=n-1; i>=0; i--) {
+            while (stackIdx >= 0 && nums[decreasingStack[stackIdx]] <= min[i])
                 stackIdx--;
-            if (stackIdx >= 0 && min[decreasingStack[stackIdx]] < nums[i])
+            if (stackIdx >= 0 && nums[decreasingStack[stackIdx]] < nums[i]) {
+                System.out.println(min[i] + " " + nums[decreasingStack[stackIdx]] + " " + nums[i]); 
                 return true;
+            }
             decreasingStack[++stackIdx] = i;
         }
         
