@@ -1,14 +1,18 @@
 class Solution {
     public int reverse(int x) {
-        long temp = 0;
-        int xAbs = (int)Math.abs(x);
-        while (xAbs > 0) {
-            temp = temp * 10 + xAbs % 10;
-            xAbs /= 10;
+        int ans = 0;
+        int max = Integer.MAX_VALUE;
+        int min = Integer.MIN_VALUE;
+        while (x != 0) {
+            int d = x % 10;
+            if (ans > max / 10 || (ans == max / 10 && d > 7)) {
+                return 0;
+            }
+            if (ans < min / 10 || (ans == min / 10 && d < -8))
+                return 0;
+            ans = ans * 10 + d;
+            x /= 10;
         }
-        if ((x >= 0 && temp > Integer.MAX_VALUE) || (x < 0 && -temp < Integer.MIN_VALUE)) {
-            return 0;
-        }
-        return (int) (temp * (x >= 0 ? 1 : -1));
+        return ans;
     }
 }
