@@ -1,45 +1,5 @@
 class Solution {
-    // public int numDupDigitsAtMostN(int n) {
-    //     int len = 0, temp = n;
-    //     while (temp > 0) {
-    //         temp /= 10;
-    //         len++;
-    //     }
-    //     int ans = 0;
-    //     for (int i=len-1; i>=1; i--)
-    //         ans += unique(len-1);       
-    //     ans += prefixUnique(String.valueOf(n).toCharArray());
-    //     //System.out.println(uniqueSameLen + " " + n);
-    //     return n - ans;
-    // }
-
-    // private int prefixUnique(char[] n) {
-    //     int[] d = new int[10];
-    //     int ans = 0;
-    //     for (int i = 0; i < n.length()-1; i++) {
-    //         if (d[n.charAt(i)-'0'] == 0) {
-    //             d[n.charAt(i)-'0']++;
-    //             ans += 
-    //         } else {
-    //             return ans;
-    //         }
-    //     }
-    //     int last = n.charAt(n.length()-1) - '0';
-    //     return ans + (last > 0 ? last - 1 : 0);
-    // }
-
-    // private int unique(int len) {
-    //     if (len <= 0) {
-    //         return 0;
-    //     }
-    //     int ans = 9, d = 9;
-    //     for (int i = 2; i <= len; i++) {
-    //         ans *= d--;
-    //     }
-    //     return ans;
-    // }
         public int numDupDigitsAtMostN(int N) {
-        // Transform N + 1 to arrayList
         ArrayList<Integer> L = new ArrayList<Integer>();
         for (int x = N + 1; x > 0; x /= 10)
             L.add(0, x % 10);
@@ -62,7 +22,12 @@ class Solution {
     }
 
 
-    public int A(int m, int n) {
-        return n == 0 ? 1 : A(m, n - 1) * (m - n + 1);
+    // public int A(int m, int n) {
+    //     return n == 0 ? 1 : A(m, n - 1) * (m - n + 1);
+    // }
+    private int A(int n, int c){
+        int ans = 1;
+        for(int i = 0;i<c;i++,n--) ans *= n;
+        return ans;
     }
 }
