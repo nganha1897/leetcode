@@ -18,30 +18,13 @@ class Solution {
             for (int c = 0; c < n; c++) {
                 if (board[r][c] != 0) {
                     int val = Math.abs(board[r][c]);
-                    int curR = r, curC = c, count = 0;
-                    while (curC < n && (board[r][curC] == val || board[r][curC] == -val)) {
-                        count++;
-                        curC++;
-                    }
-                    if (count >= 3) {
-                        curC = c;
+                    if (c+2 < n && val == Math.abs(board[r][c+1]) && val == Math.abs(board[r][c+2])) {
+                        board[r][c] = board[r][c+1] = board[r][c+2] = -val;
                         canCrush = true;
-                        while (curC < n && (board[r][curC] == val || board[r][curC] == -val)) {
-                            board[r][curC++] = -val;
-                        }
                     }
-                    count = 0;
-                    curC = c;
-                    while (curR < m && (board[curR][c] == val || board[curR][c] == -val)) {
-                        count++;
-                        curR++;
-                    }
-                    if (count >= 3) {
-                        curR = r;
+                    if (r+2 < m && val == Math.abs(board[r+1][c]) && val == Math.abs(board[r+2][c])) {
+                        board[r][c] = board[r+1][c] = board[r+2][c] = -val;
                         canCrush = true;
-                        while (curR < m && (board[curR][c] == val || board[curR][c] == -val))  {
-                            board[curR++][c] = -val;
-                        }
                     }
                 }
             }
