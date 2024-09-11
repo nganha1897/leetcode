@@ -7,7 +7,7 @@ class Solution {
         boolean[] primes = new boolean[n];
         Arrays.fill(primes, true);
         primes[2] = true;
-        for (int i=2; i<n; i++) {
+        for (int i=2; i*i<n; i++) {
             if (primes[i]) {
                 for (int j=i*2;j<n; j+=i) {
                     primes[j] = false;
