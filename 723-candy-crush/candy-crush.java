@@ -1,11 +1,12 @@
 class Solution {
     public int[][] candyCrush(int[][] board) {
         int m = board.length, n = board[0].length;
-        boolean canCrush = crush(board, m, n);
+        boolean canCrush = true;
 
         while (canCrush) {
-            drop(board, m, n);
             canCrush = crush(board, m, n);
+            if (canCrush)
+                drop(board, m, n);
         }
 
         return board;
