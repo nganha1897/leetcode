@@ -2,21 +2,10 @@ class Solution {
     public int[][] candyCrush(int[][] board) {
         int m = board.length, n = board[0].length;
         boolean canCrush = crush(board, m, n);
-        // for (int r=0; r<m; r++) {
-        //         System.out.println(Arrays.toString(board[r])); 
-        //     }
-        //     System.out.println();
+
         while (canCrush) {
             drop(board, m, n);
-            // for (int r=0; r<m; r++) {
-            //     System.out.println(Arrays.toString(board[r])); 
-            // }
-            // System.out.println();
             canCrush = crush(board, m, n);
-            // for (int r=0; r<m; r++) {
-            //     System.out.println(Arrays.toString(board[r])); 
-            // }
-            // System.out.println();
         }
 
         return board;
