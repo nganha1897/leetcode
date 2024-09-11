@@ -7,11 +7,15 @@ class Solution {
         boolean[] primes = new boolean[n];
         Arrays.fill(primes, true);
         primes[2] = true;
-        for (int i=2; i<n; i++) {
+        for (int i = 2; i < n; i++) {
             if (primes[i]) {
                 ans++;
-                for (long j=(long)i*i;j<n; j+=i) {
-                    primes[(int)j] = false;
+                //System.out.println(i);
+                if (i <= n / i) {
+                    for (int j = i * i; j < n; j += i) {
+                        //System.out.println(i + " " + j);
+                        primes[j] = false;
+                    }
                 }
             }
         }
