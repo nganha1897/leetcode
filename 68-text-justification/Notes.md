@@ -1,0 +1,1 @@
+<h2>text-justification Notes</h2><hr>[ Time taken: 17 m 4 s ]
