@@ -18,29 +18,19 @@ class Solution {
             int unique = 0;
             for (int st=0, j=0; j<n; j++) {
                 int c = s.charAt(j) - 'a';
-                if (dp[c]++ == 0) {
+                if (++dp[c] == count) {
                     unique++;
                 }
                 if (j > len - 1) {
-                    if (--dp[s.charAt(st++)-'a'] == 0) {
+                    if (dp[s.charAt(st++)-'a']-- == count) {
                         unique--;
                     }
                 }
                 if (j>= len-1) {
                     if (unique == i) {
-                        boolean isEqCnt = true;
-                        for (int k=0; k<26; k++) {
-                            if (dp[k] > 0 && dp[k] < count) {
-                                isEqCnt = false;
-                                break;
-                            }
-                        }
-                        if (isEqCnt)
                             ans++;
-                        //System.out.println(st + " " + j + " " + count + " " + len + " " + ans);
                     }
                 }
-                //System.out.println(i + " " + st + " " + j + " " + unique);
             }
         }
         return ans;
