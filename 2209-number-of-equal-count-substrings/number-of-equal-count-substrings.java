@@ -2,8 +2,11 @@ class Solution {
     public int equalCountSubstrings(String s, int count) {
         int ans = 0;
         int n = s.length();
-        
-        for (int i=1; i<=26; i++) {
+        Set<Character> maxUnique = new HashSet<>();
+        for (char c: s.toCharArray()) {
+            maxUnique.add(c);
+        }
+        for (int i=1; i<=maxUnique.size(); i++) {
             int len = i * count;
             if (len > n) {
                 return ans;
