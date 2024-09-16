@@ -1,5 +1,8 @@
 class Solution {
     public int equalCountSubstrings(String s, int count) {
+        if (s == null || s.length() == 0 || count > s.length()) {
+            return 0;
+        }
         int ans = 0;
         int n = s.length();
         Set<Character> maxUnique = new HashSet<>();
