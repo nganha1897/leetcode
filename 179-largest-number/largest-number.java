@@ -8,10 +8,16 @@ class Solution {
         while (!pq.isEmpty()) {
             ans.append(pq.poll());
         }
-        while (ans.length() > 1 && ans.charAt(0) == '0') {
-            ans.deleteCharAt(0);
-        } 
-        return ans.toString();
+        // while (ans.length() > 1 && ans.charAt(0) == '0') {
+        //     ans.deleteCharAt(0);
+        // } 
+        for (int i=0; i<ans.length()-1; i++) {
+            if (ans.charAt(i) != '0') {
+                return ans.substring(i);
+            }
+        }
+        return ans.substring(ans.length()-1);
+        //return ans.toString();
     }
 
     private int isFront(StringBuilder a, StringBuilder b) {
