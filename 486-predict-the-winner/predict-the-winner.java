@@ -1,19 +1,27 @@
 class Solution {
     public boolean predictTheWinner(int[] nums) {
         int n = nums.length;
-        int[] dp = new int[n];
+        return predict(nums, 0, n-1, new int[n][n]) >= 0;
+    }
 
-        for (int i=0; i<n; i++) {
-            dp[i] = nums[i];
+    private int predict(int[] nums, int st, int e, int[][] dp) {
+        if (st > e) {
+            return 0;
         }
-        for (int i=n-1; i>=0; i--) {
-            int[] curDp = new int[n];
-            curDp[i] = nums[i];
-            for (int j=i+1; j<n; j++) {
-                curDp[j] = Math.max(nums[i] - dp[j], nums[j] - curDp[j-1]);
-            }
-            dp = curDp;
+
+        if (dp[st][e] != 0) {
+            return dp[st][e];
         }
-        return dp[n-1] >= 0;
+
+        int pickFirst = predict(nums, st+1, e, dp);
+        int pickLast = predict(nums, st, e-1, dp);
+        // if ((e - st + 1) % 2 == nums.length % 2) {
+        //     dp[st][e] = Math.max(nums[st] - pickFirst, nums[e] - pickLast);
+        // } else {
+        //     dp[st][e] = Math.max(pickFirst - nums[st], pickLast - nums[e]);
+        // }
+        dp[st][e] = Math.max(nums[st] - pickFirst, nums[e] - pickLast);
+        //System.out.println(st + " " + e + " " + dp[st][e]);
+        return dp[st][e];
     }
 }
