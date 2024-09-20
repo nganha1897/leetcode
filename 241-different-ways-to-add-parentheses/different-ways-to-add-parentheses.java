@@ -1,90 +1,44 @@
-// class Solution {
-//     public List<Integer> diffWaysToCompute(String expression) {
-//         List<Integer> ans = new ArrayList<>();
-//         dfs(expression, 0, ans);
-//         return ans;
-//     }
+class Solution {
+    public List<Integer> diffWaysToCompute(String expression) {
+        List<Integer> results = new ArrayList<>();
+        if (expression.length() == 0) {
+            return results;
+        }
+        if (expression.length() == 1) {
+            results.add(Integer.parseInt(expression));
+            return results;
+        }
+        if (expression.length() == 2 && Character.isDigit(expression.charAt(0))) {
+            results.add(Integer.parseInt(expression));
+            return results;
+        }
+        for (int i=0; i<expression.length(); i++) {
+            char currentChar = expression.charAt(i);
+            if (Character.isDigit(currentChar))
+                continue;
+            
+            List<Integer> leftResults = diffWaysToCompute(expression.substring(0, i));
+            List<Integer> rightResults = diffWaysToCompute(expression.substring(i+1));
 
-//     private void dfs(String expression, int i, List<Integer> ans) {
-//         if (i == expression.length()) {
-//             return;
-//         }
-//         int num = 0;
-//         while (i < expression.length() && Character.isDigit(expression.charAt(i))) {
-//             num = num * 10 + expression.charAt(i++) - '0';
-//         }
-//         if (i == expression.length()) {
-//             ans.add(num);
-//             return;
-//         }
-//         char op = expression.charAt(i);
-//         List<Integer> nextRes = new ArrayList<>();
-//         dfs(expression, i + 1, nextRes);
-//         System.out.println(num + " " + nextRes);
-//         for (int next : nextRes) {
-//             if (op == '+') {
-//                 ans.add(num + next);
-//             } else if (op == '-') {
-//                 ans.add(num - next);
-//             } else {
-//                 ans.add(num * next);
-//             }
-//         }
-
-//         int num2 = 0;
-//         while (i < expression.length() && Character.isDigit(expression.charAt(i))) {
-//             num2 = num2 * 10 + expression.charAt(i++) - '0';
-//         }
-
-//         if (i < expression.length()) {
-//             if (op == '+') {
-//                 num += num2;
-//             } else if (op == '-') {
-//                 num -= num2;
-//             } else {
-//                 num *= num2;
-//             }
-//             List<Integer> nextRes2 = new ArrayList<>();
-//             char op2 = expression.charAt(i);
-//             dfs(expression, i + 1, nextRes2);
-
-//             for (int next : nextRes2) {
-//                 if (op2 == '+') {
-//                     ans.add(num + next);
-//                 } else if (op2 == '-') {
-//                     ans.add(num - next);
-//                 } else {
-//                     ans.add(num * next);
-//                 }
-//             }
-//         }
-//     }
-// }
-
-public class Solution {
-    public List<Integer> diffWaysToCompute(String input) {
-        List<Integer> res = new ArrayList<Integer>();
-        for (int i = 0; i < input.length(); i++) {
-            char c = input.charAt(i);
-            if (c == '-' || c == '+' || c == '*') {
-                String a = input.substring(0, i);
-                String b = input.substring(i + 1);
-                List<Integer> al = diffWaysToCompute(a);
-                List<Integer> bl = diffWaysToCompute(b);
-                for (int x : al) {
-                    for (int y : bl) {
-                        if (c == '-') {
-                            res.add(x - y);
-                        } else if (c == '+') {
-                            res.add(x + y);
-                        } else if (c == '*') {
-                            res.add(x * y);
-                        }
+            for (int leftValue : leftResults) {
+                for (int rightValue : rightResults) {
+                    int computedResult = 0;
+                    switch (currentChar) {
+                        case '+':
+                            computedResult = leftValue + rightValue;
+                            break;
+                        case '-':
+                            computedResult = leftValue - rightValue;
+                            break;
+                        case '*':
+                            computedResult = leftValue * rightValue;
                     }
+
+                    results.add(computedResult);
                 }
             }
         }
-        if (res.size() == 0) res.add(Integer.valueOf(input));
-        return res;
+
+        return results;
     }
 }
