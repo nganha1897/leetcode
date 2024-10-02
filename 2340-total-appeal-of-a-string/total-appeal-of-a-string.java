@@ -7,11 +7,11 @@ class Solution {
         
         for (int i=0; i<s.length(); i++) {
             int cur = s.charAt(i) - 'a';
-            if (pos[cur] != -1) {
+            // if (pos[cur] != -1) {
+            //     dp[i+1] = dp[i] + i - pos[cur];
+            // }
+            // else 
                 dp[i+1] = dp[i] + i - pos[cur];
-            }
-            else 
-                dp[i+1] = dp[i] + i + 1;
             pos[cur] = i;
             ans += dp[i+1];
         }
